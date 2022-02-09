@@ -1,0 +1,24 @@
+{
+  "name": "@frontsail/x-sail",
+  "version": "1.0.0",
+  "author": "Muris Ceman <muris@frontsail.com>",
+  "license": "MIT",
+  "homepage": "https://www.frontsail.com/docs/essentials/alpine/x-sail",
+  "description": "An Alpine plugin for handling router links in FrontSail projects.",
+  "main": "src/index.js",
+  "scripts": {
+    "format": "prettier --write .",
+    "build": "node ./esbuild.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/frontsail/x-sail.git"
+  },
+  "bugs": {
+    "url": "https://github.com/frontsail/x-sail/issues"
+  },
+  "devDependencies": {
+    "esbuild": "^0.14.20",
+    "prettier": "^2.5.1"
+  }
+}
