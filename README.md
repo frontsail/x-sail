@@ -7,7 +7,7 @@
   </a>
 </p>
 
-X-sail is an [Alpine.js](https://github.com/alpinejs/alpine) plugin for handling router links in FrontSail projects.
+X-sail is an [Alpine](https://github.com/alpinejs/alpine) plugin for handling router links in FrontSail projects.
 
 For documentation, see [frontsail.com/docs/essentials/alpine/x-sail](https://www.frontsail.com/docs/essentials/alpine/x-sail).
 
