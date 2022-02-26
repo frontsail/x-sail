@@ -9,18 +9,18 @@ export default function (Alpine) {
 
     effect(() => {
       evaluator((evaluated) => {
-        if (typeof evaluated === 'string') {
-          link.path = evaluated
+        if (typeof evaluated === 'string' || typeof evaluated === 'number') {
+          link.path = evaluated.toString()
         } else if (Array.isArray(evaluated)) {
           link.path = evaluated.join('/')
         } else if (typeof evaluated === 'object') {
           // Links can also be objects, e.g.:
           // { path: '/captains/5417', state: { foo: 'bar' }, replace: true }
-          link.path = evaluated.path
+          link.path = Array.isArray(evaluated.path)
+            ? evaluated.path.join('/')
+            : evaluated.path.toString()
           link.state = evaluated.state ?? null
           link.replace = !!evaluated.replace
-        } else {
-          link.path = evaluated.toString()
         }
 
         // Set href attribute for anchors
