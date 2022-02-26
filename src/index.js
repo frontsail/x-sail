@@ -24,6 +24,11 @@ export default function (Alpine) {
           link.active = evaluated.active ?? null
         }
 
+        // Do nothing without a path
+        if (!link.path) {
+          return
+        }
+
         // Set href attribute for anchors
         if (el.tagName === 'A') {
           href()
