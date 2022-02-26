@@ -15,12 +15,13 @@ export default function (Alpine) {
           link.path = evaluated.join('/')
         } else if (typeof evaluated === 'object') {
           // Links can also be objects, e.g.:
-          // { path: '/captains/5417', state: { foo: 'bar' }, replace: true }
+          // { path: '/captains/5417', state: { foo: 'bar' }, replace: true, active: 'underline' }
           link.path = Array.isArray(evaluated.path)
             ? evaluated.path.join('/')
             : evaluated.path.toString()
           link.state = evaluated.state ?? null
           link.replace = !!evaluated.replace
+          link.active = evaluated.active ?? null
         }
 
         // Set href attribute for anchors
