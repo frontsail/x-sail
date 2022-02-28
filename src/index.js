@@ -11,6 +11,8 @@ export default function (Alpine) {
       evaluator((evaluated) => {
         if (typeof evaluated === 'string' || typeof evaluated === 'number') {
           link.path = evaluated.toString()
+        } else if (!evaluated) {
+          return unlink()
         } else if (Array.isArray(evaluated)) {
           link.path = evaluated.join('/')
         } else if (typeof evaluated === 'object') {
@@ -26,31 +28,34 @@ export default function (Alpine) {
 
         // Do nothing without a path
         if (!link.path) {
-          return
+          return unlink()
         }
 
         // Set href attribute for anchors
         if (el.tagName === 'A') {
           href()
-          window.addEventListener('sail', href)
+          addEventListener('underscored:sailed', href)
         }
 
-        el.addEventListener('click', clicked)
+        el.addEventListener('click', click)
       })
     })
 
-    cleanup(() => {
-      el.removeEventListener('click', clicked)
-      window.removeEventListener('sail', href)
-    })
+    cleanup(() => unlink())
 
-    function clicked(event) {
+    function click(event) {
       event.preventDefault()
       _D.sail(link)
     }
 
     function href() {
       el.setAttribute('href', _D.url(link.path))
+    }
+
+    function unlink() {
+      el.removeAttribute('href')
+      el.removeEventListener('click', click)
+      removeEventListener('underscored:sailed', href)
     }
   })
 }
