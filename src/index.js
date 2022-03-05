@@ -12,8 +12,9 @@ export default function (Alpine) {
     // Listen...
     effect(() => {
       evaluator((evaluated) => {
-        // Active classes
-        active = [...modifiers]
+        // CSS classes
+        active.splice(0, active.length)
+        active.push(...modifiers)
 
         if (typeof evaluated === 'string' || typeof evaluated === 'number') {
           // The number zero should be
@@ -47,7 +48,7 @@ export default function (Alpine) {
         // Reflect URL changes on
         // active CSS classes and
         // a[href] attributes.
-        if (el.tagName === 'A' || active.length) {
+        if (active.length || el.tagName === 'A') {
           refresh()
           addEventListener('underscored:sailed', refresh)
         }
@@ -90,7 +91,7 @@ export default function (Alpine) {
       const url = _D.url(link.path)
 
       // Handle active CSS classes
-      if (url.origin === location.origin && url.pathname === location.pathname) {
+      if (url?.origin === location.origin && url?.pathname === location.pathname) {
         active.forEach((className) => el.classList.add(className))
       } else {
         active.forEach((className) => el.classList.remove(className))
@@ -109,8 +110,8 @@ export default function (Alpine) {
           }
         }
 
-        anchor.url = url
-        anchor.external = !url.startsWith(location.origin + _D.base())
+        anchor.url = url?.href ?? ''
+        anchor.external = !anchor.url.startsWith(location.origin + _D.base())
         el.setAttribute('href', anchor.url)
 
         if (anchor.external) {
